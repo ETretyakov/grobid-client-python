@@ -12,9 +12,13 @@ This client has been developed and tested with Python 3.5.
 
 ## Install
 
-Get the github repo:
+Get the github repo (original):
 
 > git clone https://github.com/kermitt2/grobid-client-python
+
+Get the github repo (this):
+
+> git clone https://github.com/ETretyakov/grobid-client-python
 
 > cd grobid-client-python
 
@@ -27,7 +31,7 @@ It is advised to setup first a virtual environment to avoid falling into one of 
 ## Usage and options
 
 ```
-usage: grobid-client.py [-h] [--input INPUT] [--output OUTPUT]
+usage: grobid_client.py [-h] [--input INPUT] [--output OUTPUT]
                         [--config CONFIG] [--n N] [--generateIDs]
                         [--consolidate_header] [--consolidate_citations]
                         [--force]
@@ -58,35 +62,17 @@ optional arguments:
 
 Examples:
 
-> python3 grobid-client.py --input ~/tmp/in2 --output ~/tmp/out processFulltextDocument
+> python3 grobid_client.py --input ~/tmp/in2 --output ~/tmp/out processFulltextDocument
 
 This command will process all the PDF files present under the input directory recursively (files with extension `.pdf` only) with the `processFulltextDocument` service of GROBID, and write the resulting XML TEI files under the output directory, reusing the file name with a different file extension (`.tei.xml`), using the default `10` concurrent workers. 
 
 If `--output` is omitted, the resulting XML TEI documents will be produced alongside the PDF in the `--input` directory.
 
-> python3 grobid-client.py --input ~/tmp/in2 --output ~/tmp/out --n 20 processHeaderDocument
+> python3 grobid_client.py --input ~/tmp/in2 --output ~/tmp/out --n 20 processHeaderDocument
 
 This command will process all the PDF files present in the input directory (files with extension `.pdf` only) with the `processHeaderDocument` service of GROBID, and write the resulting XML TEI files under the output directory, reusing the file name with a different file extension (`.tei.xml`), using `20` concurrent workers. 
 
 By default if an existing `.tei.xml` file is present in the output directory corresponding to a PDF in the input directory, this PDF will be skipped to avoid reprocessing several times the same PDF. To force the processing of PDF and over-write of existing TEI files, use the parameter `--force`.   
-
-
-## Benchmarking
-
-Full text processing of __136 PDF__ (total 3443 pages, in average 25 pages per PDF) on Intel Core i7-4790K CPU 4.00GHz, 4 cores (8 threads), 16GB memory, `n` being the concurrency parameter:
-
-| n  | runtime (s)| s/PDF | PDF/s |
-|----|------------|-------|-------|
-| 1  | 209.0 | 1.54       | 0.65 |
-| 2  | 112.0 | 0.82       | 1.21 |
-| 3  | 80.4  | 0.59       | 1.69 |
-| 5  | 62.9  | 0.46       | 2.16 |
-| 8  | 55.7  | 0.41       | 2.44 |
-| 10 | 55.3  | 0.40       | 2.45 |
-
-![Runtime Plot](resources/20180928112135.png)
-
-As complementary info, GROBID processing of header of the 136 PDF and with `n=10` takes 3.74 s (15 times faster than the complete full text processing because only the two first pages of the PDF are considered), 36 PDF/s. In similar conditions, extraction and structuring of bibliographical references takes 26.9 s (5.1 PDF/s).
 
 ## Todo
 

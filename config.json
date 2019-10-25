@@ -1,7 +1,14 @@
 {
-    "grobid_server": "localhost",
-    "grobid_port": "8070",
+    "grobid_server": "cloud.science-miner.com/grobid",
+    "grobid_port": 0,
     "batch_size": 1000,
-    "sleep_time": 5,
-    "coordinates": [ "persName", "figure", "ref", "biblStruct", "formula" ]
+    "sleep_time": 15,
+    "coordinates": [
+        "persName",
+        "figure",
+        "ref",
+        "biblStruct",
+        "formula"
+    ],
+    "number_of_processes": 10
 }

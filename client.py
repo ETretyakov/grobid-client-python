@@ -78,7 +78,7 @@ class ApiClient(object):
         try:
             return response.json()
         except ValueError as e:
-            return e.message
+            return e.__str__()
 
     def get_credentials(self):
         """ Returns parameters to be added to authenticate the request.
@@ -121,7 +121,7 @@ class ApiClient(object):
         params = deepcopy(params) or {}
         data = data or {}
         files = files or {}
-        #if self.username is not None and self.api_key is not None:
+        # if self.username is not None and self.api_key is not None:
         #    params.update(self.get_credentials())
         r = requests.request(
             method,
